@@ -1,0 +1,2 @@
+timer.c:36:6:TIMxInit	32	static
+timer.c:205:6:BIOSTIMx_Delayus	32	static

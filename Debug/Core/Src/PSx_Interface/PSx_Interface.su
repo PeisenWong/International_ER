@@ -1,0 +1,12 @@
+PSx_Interface.c:25:6:PSxBTReceiveData	24	static
+PSx_Interface.c:40:6:PSxConnect	16	static
+PSx_Interface.c:53:6:PSxConnectDMA	16	static
+PSx_Interface.c:66:6:PSxConnectUART	16	static
+PSx_Interface.c:79:6:PSxReconnect	16	static
+PSx_Interface.c:93:6:PSxInit	16	static
+PSx_Interface.c:106:6:PSxInitDMA	16	static
+PSx_Interface.c:122:6:PSxInitUART	16	static
+PSx_Interface.c:135:6:PSx_HandlerUART_Legacy	72	static
+PSx_Interface.c:159:6:PSx_HandlerI2C	16	static
+PSx_Interface.c:183:6:PSx_HandlerUART	16	static
+PSx_Interface.c:227:6:PSxBTGetXY	16	static

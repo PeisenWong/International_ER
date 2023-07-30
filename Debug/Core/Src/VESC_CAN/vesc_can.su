@@ -1,0 +1,13 @@
+vesc_can.c:35:6:comm_can_send_buffer	64	static
+vesc_can.c:119:6:comm_can_set_duty	24	static
+vesc_can.c:132:6:comm_can_set_current	24	static
+vesc_can.c:145:6:comm_can_set_current_brake	24	static
+vesc_can.c:159:6:comm_can_set_rpm	24	static
+vesc_can.c:172:6:comm_can_set_pos	24	static
+vesc_can.c:194:6:comm_can_set_current_rel	24	static
+vesc_can.c:216:6:comm_can_set_current_brake_rel	24	static
+vesc_can.c:238:6:comm_can_set_handbrake	24	static
+vesc_can.c:260:6:comm_can_set_handbrake_rel	24	static
+vesc_can.c:273:6:decode_VESC	16	static
+vesc_can.c:357:10:get_rx_frame	16	static
+vesc_can.c:370:9:set_rx_frames	32	static

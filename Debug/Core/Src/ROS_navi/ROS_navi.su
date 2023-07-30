@@ -1,0 +1,4 @@
+ROS_navi.c:3:6:ROS_Navi_Init	16	static
+ROS_navi.c:14:6:ROS_Navi_Enq	8	static
+ROS_navi.c:26:6:ROS_Navi_Pos_Handler	8	static
+ROS_navi.c:35:6:ROS_Navi_Vel_Handler	8	static

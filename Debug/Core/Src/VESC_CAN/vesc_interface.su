@@ -1,0 +1,9 @@
+vesc_interface.c:17:6:VESCInit	32	static
+vesc_interface.c:27:6:VESCPOS	16	static
+vesc_interface.c:43:6:VESCVelocity	32	static
+vesc_interface.c:63:6:VESCRPM	16	static
+vesc_interface.c:88:6:VESCPDC	16	static
+vesc_interface.c:107:6:VESCStop	16	static
+vesc_interface.c:134:11:VESCEnquire	24	static
+vesc_interface.c:147:6:bldc_send_packet	24	static
+vesc_interface.c:151:7:VESC_calVel	24	static

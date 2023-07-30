@@ -1,0 +1,12 @@
+dma.c:8:6:DMA1_Stream0_IRQHandler	8	static
+dma.c:15:6:DMA1_Stream3_IRQHandler	8	static
+dma.c:21:6:DMA1_Stream2_IRQHandler	8	static
+dma.c:29:6:DMA1_Stream1_IRQHandler	8	static
+dma.c:34:6:DMA1_Stream4_IRQHandler	8	static
+dma.c:41:6:DMA1_Stream5_IRQHandler	8	static
+dma.c:47:6:DMA1_Stream6_IRQHandler	8	static
+dma.c:54:6:DMA1_Stream7_IRQHandler	8	static
+dma.c:61:6:DMA2_Stream0_IRQHandler	8	static
+dma.c:66:6:DMA2_Stream1_IRQHandler	8	static
+dma.c:76:6:DMA2_Stream3_IRQHandler	8	static
+dma.c:81:6:DMA2_Stream5_IRQHandler	8	static

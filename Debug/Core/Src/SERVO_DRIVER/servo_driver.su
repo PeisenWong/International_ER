@@ -1,0 +1,12 @@
+servo_driver.c:22:6:ServoDriverInit	24	static
+servo_driver.c:42:6:ServoDriverSetPWMFreq	32	static
+servo_driver.c:85:6:ServoDriverReset	16	static
+servo_driver.c:99:6:ServoDriverSleep	24	static
+servo_driver.c:118:6:ServoDriverWakeup	24	static
+servo_driver.c:137:9:ServoDriverReadPrescale	16	static
+servo_driver.c:151:5:ServoDriverGetPWM	40	static
+servo_driver.c:169:6:ServoDriverSetOnOff	40	static
+servo_driver.c:211:6:ServoDriverSetPWM	24	static
+servo_driver.c:253:6:ServoDriverWriteMicroseconds	40	static
+servo_driver.c:286:6:ServoDriverSetExtClk	24	static
+servo_driver.c:314:6:ServoDriverSetOutputMode	24	static

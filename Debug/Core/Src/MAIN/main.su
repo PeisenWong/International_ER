@@ -1,0 +1,8 @@
+main.c:27:5:main	152	static
+main.c:61:6:TIM6_DAC_IRQHandler	112	static
+main.c:144:6:MainTask	16	static
+main.c:196:6:NaviTask	16	static
+main.c:290:6:CheckingTask	16	static
+main.c:352:6:EmergencyTask	56	static
+main.c:434:6:HAL_UART_RxCpltCallback	16	static
+main.c:448:6:Error_Handler	4	static

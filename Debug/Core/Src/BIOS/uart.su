@@ -1,0 +1,12 @@
+uart.c:16:6:UARTInit	32	static
+uart.c:105:6:UARTx_DMA_Rx_Init	40	static
+uart.c:180:6:UARTx_DMA_Tx_Init	32	static
+uart.c:253:10:USART_ReceiveData	16	static
+uart.c:270:6:UARTPrintString	16	static
+uart.c:284:6:UARTPrintString_IT	16	static
+uart.c:289:7:USART1_IRQHandler	8	static
+uart.c:295:7:USART2_IRQHandler	8	static
+uart.c:300:7:USART3_IRQHandler	8	static
+uart.c:305:6:UART4_IRQHandler	8	static
+uart.c:311:6:UART5_IRQHandler	8	static
+uart.c:316:7:USART6_IRQHandler	8	static

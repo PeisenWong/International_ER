@@ -1,0 +1,6 @@
+can.c:43:6:CANxInit	64	static
+can.c:141:10:CAN_TxMsg	72	static
+can.c:193:10:CAN_TxMsgEID	72	static
+can.c:231:10:CAN_OPEN_TxMsg	72	static
+can.c:269:10:CAN_TxRTR	48	static
+can.c:290:10:CAN_Open_TxSync	48	static

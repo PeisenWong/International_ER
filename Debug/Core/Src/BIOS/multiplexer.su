@@ -1,0 +1,3 @@
+multiplexer.c:26:6:MUXInit	32	static
+multiplexer.c:55:9:MUXSelect	16	static
+multiplexer.c:75:6:MUXUpdate	24	static

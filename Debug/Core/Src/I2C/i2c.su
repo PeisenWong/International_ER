@@ -1,0 +1,9 @@
+i2c.c:23:6:I2CxInit	32	static
+i2c.c:97:6:I2CX_DMA_RX_Init	40	static
+i2c.c:221:19:I2CSend	304	static
+i2c.c:250:19:I2CSendV	296	static
+i2c.c:280:6:I2CWriteReg8	32	static
+i2c.c:301:9:I2CReadReg8	40	static
+i2c.c:359:6:I2C2_EV_IRQHandler	8	static
+i2c.c:375:6:I2C2_ER_IRQHandler	8	static
+i2c.c:390:6:I2C3_EV_IRQHandler	8	static

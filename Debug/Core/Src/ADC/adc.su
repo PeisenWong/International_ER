@@ -1,0 +1,2 @@
+adc.c:24:6:ADC_DMAxInit	40	static
+adc.c:120:6:ADC_Channel_Config	48	static

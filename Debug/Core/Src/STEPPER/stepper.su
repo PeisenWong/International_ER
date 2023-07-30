@@ -1,0 +1,7 @@
+stepper.c:28:6:StepperInit	40	static
+stepper.c:82:6:StepperMovetoAngle	16	static
+stepper.c:98:6:StepperMovetoStep	16	static
+stepper.c:113:6:StepperMoveSteps	16	static
+stepper.c:138:6:StepperResetCount	16	static
+stepper.c:152:6:StepperUpdate	16	static
+stepper.c:189:6:StepperStop	16	static

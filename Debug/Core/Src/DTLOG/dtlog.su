@@ -1,0 +1,4 @@
+dtlog.c:186:6:ModTaskDtlogInit	16	static
+dtlog.c:210:6:ModTaskDtlogTx	24	static
+dtlog.c:227:6:ModTaskDtlogRx	24	static
+dtlog.c:286:13:data_load	16	static

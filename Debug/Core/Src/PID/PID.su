@@ -1,0 +1,7 @@
+PID.c:32:6:PIDSourceInit	24	static
+PID.c:38:6:PIDGainInit	48	static
+PID.c:73:6:PIDGainSet	24	static
+PID.c:79:6:PIDCoeffCalc	32	static
+PID.c:98:6:PIDDelayInit	16	static
+PID.c:112:6:PIDIsSaturared	16	static
+PID.c:117:6:PID	32	static

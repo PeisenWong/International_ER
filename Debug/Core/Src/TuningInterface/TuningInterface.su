@@ -1,0 +1,10 @@
+TuningInterface.c:57:6:tuneRegister	24	static
+TuningInterface.c:67:6:tunePending	8	static
+TuningInterface.c:71:6:tuneInit	136	static
+TuningInterface.c:114:6:tuneUpdate	56	dynamic
+TuningInterface.c:139:6:tuneEdit	16	static
+TuningInterface.c:190:10:tuneWriteInt	32	static
+TuningInterface.c:219:10:tuneWriteFloat	32	static
+TuningInterface.c:250:6:tuneRead	24	static
+TuningInterface.c:265:6:tunePID	224	static
+TuningInterface.c:373:6:tunePIDTri	224	static

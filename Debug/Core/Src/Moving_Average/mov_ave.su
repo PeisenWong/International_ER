@@ -1,0 +1,2 @@
+mov_ave.c:21:6:Moving_Average_Init	32	static
+mov_ave.c:47:6:Moving_Average_Filter	16	static

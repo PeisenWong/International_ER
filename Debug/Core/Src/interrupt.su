@@ -1,0 +1,14 @@
+interrupt.c:22:6:NMI_Handler	4	static
+interrupt.c:30:6:HardFault_Handler	4	static
+interrupt.c:38:6:MemManage_Handler	4	static
+interrupt.c:49:6:BusFault_Handler	4	static
+interrupt.c:57:6:UsageFault_Handler	4	static
+interrupt.c:73:6:DebugMon_Handler	4	static
+interrupt.c:97:6:TIM1_UP_TIM10_IRQHandler	8	static
+interrupt.c:119:6:TIM4_IRQHandler	8	static
+interrupt.c:144:6:TIM8_UP_TIM13_IRQHandler	8	static
+interrupt.c:166:6:TIM2_IRQHandler	8	static
+interrupt.c:171:6:HAL_TIM_PeriodElapsedCallback	16	static
+interrupt.c:183:6:HAL_I2C_MasterRxCpltCallback	16	static
+interrupt.c:195:6:I2C1_EV_IRQHandler	8	static
+interrupt.c:199:6:I2C1_ER_IRQHandler	8	static

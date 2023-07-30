@@ -1,0 +1,4 @@
+laser.c:22:6:LaserInit	32	static
+laser.c:37:6:Laser	16	static
+laser.c:59:6:LaserUpdate	24	static
+laser.c:66:6:DMA2_Stream2_IRQHandler	8	static

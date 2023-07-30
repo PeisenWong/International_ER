@@ -1,0 +1,3 @@
+dongbei.c:4:6:DONGBEIInit	16	static
+dongbei.c:9:6:DONGBEIProcessData	16	static
+dongbei.c:48:10:DONGBEICmd	32	static

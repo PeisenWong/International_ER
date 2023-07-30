@@ -1,0 +1,2 @@
+pwm.c:23:6:PWMTimeBaseInit	48	static
+pwm.c:115:6:PWMChannelConfig	112	static
