@@ -151,6 +151,7 @@ void RobotStart()
 	shot_count = 0;
 	manual_adjust = 0;
 	extra_rpm = 0;
+	go_A = 0;
 
 	// Parameters
 	RedPickLess = 60;
@@ -276,87 +277,226 @@ void NormalControl()
 
 		if(counter == 1)
 		{
-			open_servo;
+			cylinder_load;
 		}
 		else
 		{
-			close_servo;
+			cylinder_retract;
 			counter = 0;
 		}
-//		LidarSendIns(NEAR, &lidar);
+		mode = AUTO;
 	}
 
+	// Adjust for A and B
 	if(ps4.button == LEFT)
 	{
 		while(ps4.button == LEFT);
-//		if(!picked_left)
-//			pick_left = 1;
-//		else
-//			pick_right = 1;
 
-//		pick_left = 1;
-//		pick_left_manual = 1;
-		ResetCoordinate();
-		lidar.pos = PICK_LEFT;
-		lidar.pos_counter = PICK_LEFT;
-		cylinder_retract;
-		vesc_speed = 4;
-		// Stick to fence
-		float stick_fence_point[1][7] = {{2.0, 0.0, -5, 0, 0, 0, 0}};
-		PP_start(stick_fence_point, 1, &pp);
-		while(pp.pp_start)
+		float center_2_to_A[1][7] = {{0, 4.22, pp.real_y + 0.3, -90, 3.5, 0.06, 1}};
+		float A_to_center_2[1][7] = {{0, 4.32, pp.real_y + 0.3, -90, 3.5, 0.06, 1}};
+
+		float center_3_to_B[1][7] = {{0, 4.76, pp.real_y + 0.3, -90, 3.5, 0.06, 1}};
+		float B_to_center_3[1][7] = {{0, 4.66, pp.real_y + 0.3, -90, 3.5, 0.06, 1}};
+
+		float center_to_three[1][7] = {{0, 5.6, pp.real_y + 0.3, -90, 3.5, 0.06, 1}};
+		float three_to_center[1][7] = {{0, 5.82, pp.real_y + 0.3, -90, 3.5, 0.06, 1}};
+
+		if(lidar.pos == CENTER_2)
 		{
-			if(ps4.button == SQUARE)
+			if(blue)
 			{
-				while(ps4.button == SQUARE);
-				PP_stop(&pp);
+				vesc_speed = BlueOppoType2;
+				vesc_duty = BlueOppoType2Duty;
+			}
+			else
+			{
+				vesc_speed = RedOppoType2;
+				vesc_duty = RedOppoType2Duty;
 			}
 
-			if(In_LS_Left_1 || In_LS_Left_2)
-				PP_stop(&pp);
-		}
-		pick_left = 0;
-		picked_left = 1;
-
-		setPick(0);
-		ResetCoordinate();
-
-		float pick_left_point[1][7] = {{3.3, -10, -1.5, 0, 0, 0, 0}};
-		PP_start(pick_left_point, 1, &pp);
-		while(pp.pp_start)
-		{
-			if(pp.real_x <= -0.3)
-				pp.target_vel[0] = 0.45;
-
-			if(In_Pick && pp.real_x <= -0.4)
-				PP_stop(&pp);
-
-			if(ps4.button == SQUARE)
-			{
-				while(ps4.button == SQUARE);
-				PP_stop(&pp);
-				picked_left = 0;
-			}
-		}
-		if(picked_left)
-		{
-			float pick_left_adjust_servo[1][7] = {{3.5, 0.5, 0, 0, 0, 0, 0}};
-			PP_start(pick_left_adjust_servo, 1, &pp);
-			while(pp.pp_start)
+			lidar.pos = A;
+			LSR_start(center_2_to_A, 1, &pp, 0, 0);
+			while(pp.lsr_start)
 			{
 				if(ps4.button == SQUARE)
 				{
 					while(ps4.button == SQUARE);
 					PP_stop(&pp);
 				}
+
+				if(lsrL.dist <= center_2_to_A[0][1])
+					PP_stop(&pp);
 			}
-			LoadRing();
-			close_servo;
-			lidar.pos_counter = CENTER_1;
-			AdjustRings();
-//			osDelay(500);
-			setSpeedMODN(5.5);
+
+			if(lidar.autoshot)
+			{
+				osDelay(300);
+				Shot();
+			}
 		}
+
+		else if(lidar.pos == A)
+		{
+			if(blue)
+			{
+				vesc_speed = BlueType2;
+				vesc_duty = BlueType2Duty;
+			}
+			else
+			{
+				vesc_speed = RedType2;
+				vesc_duty = RedType2Duty;
+			}
+
+			lidar.pos = CENTER_2;
+			LSR_start(A_to_center_2, 1, &pp, 0, 0);
+			while(pp.lsr_start)
+			{
+				if(ps4.button == SQUARE)
+				{
+					while(ps4.button == SQUARE);
+					PP_stop(&pp);
+				}
+
+				if(lsrL.dist >= A_to_center_2[0][1])
+					PP_stop(&pp);
+			}
+
+			if(lidar.autoshot)
+			{
+				osDelay(300);
+				Shot();
+			}
+		}
+
+		else if(lidar.pos == CENTER_3)
+		{
+			if(blue)
+			{
+				vesc_speed = BlueOppoType2;
+				vesc_duty = BlueOppoType2Duty;
+			}
+			else
+			{
+				vesc_speed = RedOppoType2;
+				vesc_duty = RedOppoType2Duty;
+			}
+
+			lidar.pos = B;
+			LSR_start(center_3_to_B, 1, &pp, 0, 1);
+			while(pp.lsr_start)
+			{
+				if(ps4.button == SQUARE)
+				{
+					while(ps4.button == SQUARE);
+					PP_stop(&pp);
+				}
+
+				if(lsrR.dist >= center_3_to_B[0][1])
+					PP_stop(&pp);
+			}
+
+			if(lidar.autoshot)
+			{
+				osDelay(300);
+				Shot();
+			}
+		}
+
+		else if(lidar.pos == B)
+		{
+			if(blue)
+			{
+				vesc_speed = BlueType2;
+				vesc_duty = BlueType2Duty;
+			}
+			else
+			{
+				vesc_speed = RedType2;
+				vesc_duty = RedType2Duty;
+			}
+
+			lidar.pos = CENTER_3;
+			LSR_start(B_to_center_3, 1, &pp, 0, 1);
+			while(pp.lsr_start)
+			{
+				if(ps4.button == SQUARE)
+				{
+					while(ps4.button == SQUARE);
+					PP_stop(&pp);
+				}
+
+				if(lsrR.dist <= B_to_center_3[0][1])
+					PP_stop(&pp);
+			}
+
+			if(lidar.autoshot)
+			{
+				osDelay(300);
+				Shot();
+			}
+		}
+
+		else if(lidar.pos == CENTER)
+		{
+			if(blue)
+			{
+				vesc_speed = BlueType3;
+				vesc_duty = BlueType3Duty;
+			}
+			else
+			{
+				vesc_speed = RedType3;
+				vesc_duty = RedType3Duty;
+			}
+
+			lidar.pos = TYPE_THREE;
+			LSR_start(center_to_three, 1, &pp, 0, 0);
+			while(pp.lsr_start)
+			{
+				if(ps4.button == SQUARE)
+				{
+					while(ps4.button == SQUARE);
+					PP_stop(&pp);
+				}
+
+				if(lsrL.dist <= center_to_three[0][1])
+					PP_stop(&pp);
+			}
+
+			if(lidar.autoshot)
+			{
+				osDelay(300);
+				Shot();
+			}
+		}
+
+		else if(lidar.pos == TYPE_THREE)
+		{
+			vesc_speed = type1;
+			vesc_duty = type1Duty;
+
+			lidar.pos = CENTER;
+			LSR_start(three_to_center, 1, &pp, 0, 1);
+			while(pp.lsr_start)
+			{
+				if(ps4.button == SQUARE)
+				{
+					while(ps4.button == SQUARE);
+					PP_stop(&pp);
+				}
+
+				if(lsrL.dist >= three_to_center[0][1])
+					PP_stop(&pp);
+			}
+
+			if(lidar.autoshot)
+			{
+				osDelay(300);
+				Shot();
+			}
+		}
+
 		mode = AUTO;
 	}
 
@@ -364,8 +504,16 @@ void NormalControl()
 	{
 		while(ps4.button == DOWN);
 //		stick_fence = 0;
+		if(lidar.pos == A)
+			lidar.pos = CENTER_2;
+		else if(lidar.pos == B)
+			lidar.pos = CENTER_3;
+		else if(lidar.pos == TYPE_THREE)
+			lidar.pos = CENTER;
+
 		lidar.pos_counter = PICK_RIGHT;
 		mode = AUTO;
+
 	}
 
 	if (HAL_GetTick() - before >= NormalMode) {
@@ -499,41 +647,36 @@ void Auto() {
 	if(ps4.button == CIRCLE)
 	{
 		while(ps4.button == CIRCLE);
-		vesc_speed = 4;
-		static int counter = 0;
 
-		if(counter == 0)
+		lidar.pos = PICK_LEFT;
+		lidar.pos_counter = PICK_LEFT;
+
+		setPick(2200);
+
+		float pick_left_point[1][7] = {{12.0, -3.6, 0.0, 0, 0, 0, 0}};
+		PP_start(pick_left_point, 1, &pp);
+		while(pp.pp_start)
 		{
-			lidar.pos = PICK_LEFT;
-			lidar.pos_counter = PICK_LEFT;
-
-			setPick(2200);
-
-			float pick_left_point[1][7] = {{12.0, -3.6, 0.0, 0, 0, 0, 0}};
-			PP_start(pick_left_point, 1, &pp);
-			while(pp.pp_start)
+			if(ps4.button == SQUARE)
 			{
-				if(ps4.button == SQUARE)
-				{
-					while(ps4.button == SQUARE);
-					PP_stop(&pp);
-				}
-
-				if(pp.real_x <= -3.2)
-					PP_stop(&pp);
+				while(ps4.button == SQUARE);
+				PP_stop(&pp);
 			}
-			pick_left = 1;
-			counter++;
-			cylinder_retract;
+
+			if(pp.real_x <= -3.2)
+				PP_stop(&pp);
+
+			if(ps4.button == UP)
+			{
+				while(ps4.button == UP);
+				go_A = 1;
+			}
 		}
-		else
-		{
-			counter = 0;
-			lidar.pos = POS_PENDING;
-			lidar.pos_counter = POS_PENDING;
-			pick_right = 1;
-			cylinder_retract;
-		}
+		pick_left = 1;
+		counter++;
+		cylinder_retract;
+
+
 	}
 
 	if(ps4.button == TRIANGLE)
@@ -711,7 +854,10 @@ void CheckPick()
 				}
 			}
 			LoadRing();
-			lidar.pos_counter = CENTER_1;
+			if(go_A)
+				lidar.pos_counter = CENTER_2;
+			else
+				lidar.pos_counter = CENTER_1;
 			load_adjust = 1;
 			AdjustRings();
 //			adjust_servo;
@@ -773,6 +919,9 @@ void CheckPick()
 			{
 				while(ps4.button == UP);
 				go_type_3++;
+
+				if(go_type_3 > 3)
+					go_type_3 = 0;
 			}
 		}
 

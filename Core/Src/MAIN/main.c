@@ -384,7 +384,6 @@ void EmergencyTask(void *argument) {
 			servo_enb = 0;
 		}
 
-		float angle_shoot_point[1][7] = {{1.5, 0, -0.2, -90, 0, 0, 0}};
 
 		if (ps4.button == TOUCH) {
 //			while(ps4.button == TOUCH);
@@ -402,31 +401,9 @@ void EmergencyTask(void *argument) {
 //							(osPriority_t) osPriorityNormal, };
 //
 //			MainTaskHandle = osThreadNew(MainTask, NULL, &MainTask_attributes);
-			while(ps4.button == TOUCH);
-			static int counter = 0;
-			if(counter == 0)
-			{
-				angle_shoot = 1;
-				led5_on;
-				ResetCoordinate();
-				PP_start(angle_shoot_point, 1, &pp);
-				while(pp.pp_start)
-				{
-					if(ps4.button == SQUARE)
-					{
-						while(ps4.button == SQUARE);
-						PP_stop(&pp);
-					}
-				}
-				lidar.angle_counter = BR;
-				counter++;
-			}
-			else
-			{
-				angle_shoot = 0;
-				led5_off;
-				counter = 0;
-			}
+			while(ps4.button == TOUCH)
+				pp.target_vel[0] = 1.5;
+			pp.target_vel[0] = 0.4;
 		}
 	}
 }

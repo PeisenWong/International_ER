@@ -203,7 +203,7 @@ int shoot_start, shoot_done, load_start, pick_start, set_pitch, pick_left, pick_
 int picked_left, picked_right, loaded, servo_close_once, stick_fence;
 int tune_p, tune_i, tune_d, wheel;
 int led_enb, before_shot, shot_prd;
-int pick_0, picked_manual, pick_left_manual, load_adjust, adjust_count, up_done, type_3_done, blue, go_type_3, shooted, pick_right_enb;
+int pick_0, picked_manual, pick_left_manual, load_adjust, adjust_count, up_done, type_3_done, blue, go_type_3, shooted, pick_right_enb, go_A;
 int start_flywheel, cylinder_load_once, must_load, servo_enb, stop_adjust, vesc_start, angle_shoot, shot_count, manual_adjust, extra_rpm;
 
 

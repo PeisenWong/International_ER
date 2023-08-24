@@ -46,7 +46,10 @@ typedef enum
 	CENTER_3,
 	CENTER_4,
 	UPPER_RIGHT,
-	PICK_RIGHT
+	PICK_RIGHT,
+	A,
+	B,
+	TYPE_THREE
 }Pos_t; // Try from different pose
 
 // Adjust angle while shooting pole in position respectively

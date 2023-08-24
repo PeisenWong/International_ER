@@ -126,7 +126,8 @@ void LidarSetPos(Pos_t pose, Lidar_t* lidar)
 //	*******************************************************************************LASER*************************************************************************************
 
 	// Pick Left
-	float pick_left_adjust[1][7] = {{3.5, 1.8, 0.6, -90.0, 0, 0, 0}};
+	float pick_left_adjust[1][7] = {{4.5, 1.8, 0.6, -90.0, 0, 0, 0}};
+	float pick_left_adjust_center_2[1][7] = {{4.5, 3, 0.6, -90.0, 0, 0, 0}};
 	float laser_adjust_center_4[1][7] = {{3.5, 5, 0.1, -90, 0, 0, 0}};
 //	float bang_fence[1][7] = {{0.75, 0, 10, -90, 0, 0, 0}};
 
@@ -528,8 +529,38 @@ void LidarSetPos(Pos_t pose, Lidar_t* lidar)
 			switch(lidar->pos) // Self Pose
 			{
 				case PICK_LEFT:
+					lidar->fail = 0;
+					stick_fence = 0;
+					if(blue)
+					{
+						vesc_speed = BlueOppoType2;
+						vesc_duty = BlueOppoType2Duty + 10;
+					}
+					else
+					{
+						vesc_speed = RedOppoType2;
+						vesc_duty = RedOppoType2Duty + 10;
+					}
+					ResetCoordinate();
 					lidar->pos = CENTER_2;
+
+					PP_start(pick_left_adjust_center_2, 1, &pp);
+					while(pp.pp_start)
+					{
+						if(ps4.button == SQUARE)
+						{
+							while(ps4.button == SQUARE);
+							PP_stop(&pp);
+						}
+					}
+
+					stick_fence = 1;
+
+					// Only adjust after reached destination
+					if(!lidar->fail)
+						LidarAdjust(lidar);
 					break;
+
 
 				case PICK_RIGHT:
 					stick_fence = 0;
@@ -3471,9 +3502,35 @@ void LidarControl(Lidar_t* lidar)
 			shot_count = 0;
 
 			if(after - before > 500)
-				lidar->pos_counter -= 3;
+			{
+				if(lidar->pos == B)
+				{
+					lidar->pos = CENTER_3;
+					lidar->pos_counter = CENTER_1;
+				}
+				else
+					lidar->pos_counter -= 3;
+			}
 			else
-				lidar->pos_counter--;
+			{
+				if(lidar->pos == A)
+				{
+					lidar->pos = CENTER_2;
+					lidar->pos_counter = CENTER_1;
+				}
+				else if(lidar->pos == B)
+				{
+					lidar->pos = CENTER_3;
+					lidar->pos_counter = CENTER;
+				}
+				else if(lidar->pos == TYPE_THREE)
+				{
+					lidar->pos = CENTER;
+					lidar->pos_counter = CENTER_2;
+				}
+				else
+					lidar->pos_counter--;
+			}
 		}
 
 		if(ps4.button == RIGHT)
@@ -3485,9 +3542,35 @@ void LidarControl(Lidar_t* lidar)
 			}
 
 			if(after - before > 500)
-				lidar->pos_counter += 3;
+			{
+				if(lidar->pos == A)
+				{
+					lidar->pos = CENTER_2;
+					lidar->pos_counter = CENTER_4;
+				}
+				else
+					lidar->pos_counter += 3;
+			}
 			else
-				lidar->pos_counter++;
+			{
+				if(lidar->pos == A)
+				{
+					lidar->pos = CENTER_2;
+					lidar->pos_counter = CENTER;
+				}
+				else if(lidar->pos == B)
+				{
+					lidar->pos = CENTER_3;
+					lidar->pos_counter = CENTER_4;
+				}
+				else if(lidar->pos == TYPE_THREE)
+				{
+					lidar->pos = CENTER;
+					lidar->pos_counter = CENTER_3;
+				}
+				else
+					lidar->pos_counter++;
+			}
 			shot_count = 0;
 		}
 
@@ -3500,9 +3583,24 @@ void LidarControl(Lidar_t* lidar)
 			}
 
 			if(after - before > 500)
+			{
 				lidar->pos_counter += 4;
+			}
 			else
-				lidar->pos_counter += 2;
+			{
+				if(lidar->pos == A)
+				{
+					lidar->pos = CENTER_2;
+					lidar->pos_counter = CENTER_3;
+				}
+				else if(lidar->pos == TYPE_THREE)
+				{
+					lidar->pos = CENTER;
+					lidar->pos_counter = CENTER_4;
+				}
+				else
+					lidar->pos_counter += 2;
+			}
 			shot_count = 0;
 		}
 
@@ -3515,15 +3613,31 @@ void LidarControl(Lidar_t* lidar)
 			}
 
 			if(after - before > 500)
+			{
 				lidar->pos_counter -= 4;
+			}
 			else
-				lidar->pos_counter -= 2;
+			{
+				if(lidar->pos == B)
+				{
+					lidar->pos = CENTER_3;
+					lidar->pos_counter = CENTER_2;
+				}
+				else if(lidar->pos == TYPE_THREE)
+				{
+					lidar->pos = CENTER;
+					lidar->pos_counter = CENTER_1;
+				}
+				else
+					lidar->pos_counter -= 2;
+			}
 			shot_count = 0;
 		}
 	}
 	LidarCheckPos(lidar);
 	LidarCheckAngle(lidar);
 }
+
 
 void LidarCheckAngle(Lidar_t* lidar)
 {
